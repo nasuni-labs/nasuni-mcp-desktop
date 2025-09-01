@@ -191,6 +191,7 @@ class FileSystem:
         path = os.path.join(self.config.file_system_path, relative_path)
         abs_path = os.path.abspath(path)
         base_dir = os.path.abspath(self.config.file_system_path)
-        if not abs_path.startswith(base_dir + os.sep) and abs_path != base_dir:
+        # Use os.path.commonpath to check if abs_path is within base_dir
+        if os.path.commonpath([abs_path, base_dir]) != base_dir:
             raise ValueError("Access to the path is not allowed.")
         return abs_path
