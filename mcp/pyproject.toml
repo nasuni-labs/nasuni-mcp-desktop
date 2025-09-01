@@ -1,0 +1,11 @@
+[project]
+name = "nasuni_mcp_server"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp[cli]==1.13.0",
+    "pypdf==6.0.0",
+    "python-docx==1.2.0",
+    "pillow==11.2.1",
+    "hachoir==3.3.0"
+]
