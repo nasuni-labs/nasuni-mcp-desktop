@@ -9,10 +9,10 @@
 * One or more Nasuni SMB shares accessible to you on your local desktop
 * Claude Desktop
 
-### Install DXT file in Claude Desktop
+### Install Extension in Claude Desktop
 
-* Locate the file *nasuni-mcp-desktop.dxt* in this repo. Download and install it in Claude Desktop [DXT package](nasuni-mcp-server.dxt)
-	* Settings -> Extensions -> Advanced settings -> Extension Developer -> Install Extension
+* Download the file *nasuni-mcp-desktop-solution.dxt* from this repo. [DXT package](nasuni-mcp-desktop-solution.dxt)
+	* Install it in Claude Desktop: Settings -> Extensions -> Advanced settings -> Extension Developer -> Install Extension
 
 ### Manual install
 
