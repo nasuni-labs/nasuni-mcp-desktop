@@ -1,8 +1,7 @@
 # Nasuni Desktop MCP Solution for SMB shares with STDIO
 
-## Install
 
-### Prerequisites
+## Prerequisites
 
 * The `uv` tool must be installed, facilitating the deployment and management of the project dependencies
 	* For more information about installing `uv` reference: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
@@ -10,18 +9,20 @@
 * One or more Nasuni SMB shares accessible to you on your local desktop
 * Claude Desktop
 
-### Install Extension in Claude Desktop
+---
+
+## Configure Agent
+
+### Claude Desktop - Install Extension
 
 * Download the file *nasuni-mcp-desktop-solution.dxt* from this repo. [DXT package](nasuni-mcp-desktop-solution.dxt)
 	* Install it in Claude Desktop: Settings -> Extensions -> Advanced settings -> Extension Developer -> Install Extension
 
-### Manual install
+### Other AI Agents - Manual install
 
-DXT package works only with Claude Desktop. For other AI Agent tools (VS Code, Cursor or any custom AI agents supporting MCP) you need to install and configure the MCP server manually.
-
-Untar this repository somewhere.
-
-Configure the MCP server similar to this:
+* For AI Agent tools other than Claude Desktop (VS Code, Cursor, etc.) you need to install and configure the MCP server manually.
+* Untar this repository somewhere.
+* Configure the MCP server similar to this:
 
 ```json
 "mcp_config": {
@@ -43,7 +44,7 @@ Configure the MCP server similar to this:
 
 Where the `MCP_SERVER_PATH` is the absolute path to the folder where this code is installed (the contents of mcp directory from this repo).
 
-## Using with VSCode
+#### VS Code
 
 The config file `.vscode/mcp.json` would look like this:
 
@@ -71,7 +72,7 @@ The config file `.vscode/mcp.json` would look like this:
 }
 ```
 
-## Config for manual install
+#### Parameters for manual install
 
 - SERVER_PATH - it is the absolute path to the folder where this code is installed.
 - FILE_SYSTEM_PATH - The path to the mounted SMB share on the local file system. Required. It is the local file system absolute path. On Windows, this is typically in the form of `\\server\share` or `Z:\`.
@@ -86,10 +87,11 @@ Example: cat.png has the size 2048KB. AI agent uses the tool `image_file_content
 - If `MAX_READ_FILE_SIZE` is set to 1024KB then the original file can not be read. Error will be returned.
 - If `MAX_READ_FILE_SIZE` is set to 4096KB then the original file can be read. Then the server will create the thumbnail and compare the thumbnail size to `MAX_RETURN_FILE_SIZE`. If the thumbnail size is less than `MAX_RETURN_FILE_SIZE`, the thumbnail will be returned. If the thumbnail size is greater than `MAX_RETURN_FILE_SIZE`, an error will be returned.
 
-## Supported tools
+---
 
+## Supported Tools
 
-The following tools are available in this server:
+The following tools are available in this Solution:
 
 1. **folder_contents(path: str = "") -> FolderContents**
 	- **Arguments:** `path` (str, optional)
