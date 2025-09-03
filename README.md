@@ -1,12 +1,18 @@
-# MCP Server for SMB share with STDIO
+# Nasuni Desktop MCP Solution for SMB shares with STDIO
 
 ## Install
 
-This tool requires the `uv` tool installed. It helps to install and manage the project dependencies. FInd how to install `uv` if you do not have it yet [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+### Prerequisites
+
+* The `uv` tool must be installed, facilitating the deployment and management of the project dependencies
+	* For more information about installing `uv` reference: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+* One or more Nasuni SMB shares accessible to you on your local desktop
+* Claude Desktop
 
 ### Install DXT file in Claude Desktop
 
-There is the file nasuni-mcp-desktop.dxt in this repo. Download it and install it in Claude Desktop in the Extensions view. [Get DXT package](nasuni-mcp-server.dxt)
+* Locate the file *nasuni-mcp-desktop.dxt* in this repo. Download and install it in Claude Desktop [DXT package](nasuni-mcp-server.dxt)
+	* Settings -> Extensions -> Advanced settings -> Extension Developer -> Install Extension
 
 ### Manual install
 
