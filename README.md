@@ -6,6 +6,7 @@
 
 * The `uv` tool must be installed, facilitating the deployment and management of the project dependencies
 	* For more information about installing `uv` reference: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+* Python must be installed. During installation select the option *Add python.exe to PATH*. https://www.python.org/downloads/
 * One or more Nasuni SMB shares accessible to you on your local desktop
 * Claude Desktop
 
