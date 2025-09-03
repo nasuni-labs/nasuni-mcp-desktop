@@ -102,24 +102,27 @@ All paths are relative to the configured root (`FILE_SYSTEM_PATH`) and use / as 
 
 1. **folder_contents(path: str = "") -> FolderContents**
 	- **Arguments:** `path` (str, optional)
-	- **Description:** Returns list of files and sub folders by the folder from SMB share. Accepts path to the folder. If the path is empty, it returns the root folder contents. The path is relative to the root folder. Names are delimited with '/'.
+	- **Description:** Returns a list of files and subfolders within path. If path is empty, returns the root folder contents.
 
 2. **file_metadata(path: str) -> FileMetadata**
-	- **Arguments:** `path` (str)
-	- **Description:** Returns metadata for a file from SMB share. This represents a file size and detects if a file can be treated as image or a text can be extracted from the file. The path is relative to the root folder. Names are delimited with '/'.
+	- **Arguments:** `path` (str, required)
+	- **Description:** Returns file metadata (e.g., size, type, whether it’s readable as an image, and whether text can be extracted).
 
 3. **file_contents(path: str) -> str**
-	- **Arguments:** `path` (str)
-	- **Description:** Download file from the SMB share. Returns a file contents converted to a string. Files with binary contents can have unexpected results. This method works the best for text or hypertext files. If a file is binary, or contains non plain text content, it is recommended to use file_contents_base64() method, which works better for binary files. Or use image_file_contents() method for images of supported formats. The path is relative to the root folder. Names are delimited with '/'.
+	- **Arguments:** `path` (str, required)
+	- **Description:** Downloads the file and returns its contents as a string. Best for text or text-based formats. Binary files may yield unreadable output; prefer `file_contents_base64()` for binary data or `image_file_contents()` for images.
 
 4. **file_contents_base64(path: str) -> str**
-	- **Arguments:** `path` (str)
-	- **Description:** Download file from the SMB share. Returns a file contents encoded as base64. This works the best with binary files. The path is relative to the root folder. Names are delimited with '/'.
+	- **Arguments:** `path` (str, required)
+	- **Description:** Downloads the file and returns its contents as a Base64-encoded string. Recommended for binary files.
 
 5. **image_file_contents(path: str, thumb_width: int = 0) -> Image**
-	- **Arguments:** `path` (str), `thumb_width` (int, optional)
-	- **Description:** Download image file from the SMB share. Returns an Image object. This works only for image files of types png and jpeg. The path is relative to the root folder. Names are delimited with '/'. The image can be resized by specifying the thumb_width parameter. If thumb_width is greater than 0, the image will be resized to the specified width while maintaining the aspect ratio.
+	- **Arguments:** `path` (str, required), `thumb_width` (int, optional)
+	- **Description:** Downloads a PNG or JPEG image and returns an Image object. If `thumb_width > 0`, returns a thumbnail resized to that width while preserving aspect ratio.
 
 6. **file_file_contents_as_text(path: str) -> str**
-	- **Arguments:** `path` (str)
-	- **Description:** Retrieve file from the SMB share and extract text data from it. It is supported for pdf and docx files. For other files it will return the file content as a string same as file_contents() method. The path is relative to the root folder. Names are delimited with '/'.
+	- **Arguments:** `path` (str, required)
+	- **Description:** Retrieves a file and returns extracted text when supported (PDF, DOCX). For other types, returns the raw content as a string (same behavior as `file_contents()`).
+
+
+---
