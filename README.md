@@ -1,29 +1,32 @@
 # Nasuni Desktop MCP Solution for SMB shares with STDIO
 
+## Overview
+This project provides a Desktop Model Context Protocol (MCP) Server Solution that lets AI agents (such as Claude Desktop and other MCP-compatible tools) safely browse, read, and retrieve files from your Nasuni SMB shares via STDIO.
+It’s designed for use by Nasuni admins or power users in the context of their local computers to experiment with AI against Nasuni data.
 
 ## Prerequisites
 
-* The `uv` tool must be installed, facilitating the deployment and management of the project dependencies
-	* For more information about installing `uv` reference: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
-* Python must be installed. During installation select the option *Add python.exe to PATH*. https://www.python.org/downloads/
-* One or more Nasuni SMB shares accessible to you on your local desktop
-* Claude Desktop
+* `uv` is required to run and manage project dependencies.
+	* For installation instructions, see the official docs: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+* Python must be installed. On Windows, during installation check *Add python.exe to PATH.*
+	* Download: https://www.python.org/downloads/
+* Access to one or more Nasuni SMB shares mounted on your desktop
+* Claude Desktop, or another MCP-compatible AI agent
 
 ---
 
-## Configure Agent
+## Configure Your Agent
 
-### Claude Desktop - Install Extension
+### Claude Desktop - Install the Extension
 
-* Download the file *nasuni-mcp-desktop-solution.dxt* from this repo. [DXT package](nasuni-mcp-desktop-solution.dxt)
-	* Install it in Claude Desktop: Settings -> Extensions -> Advanced settings -> Extension Developer -> Install Extension
+1. Download the package *nasuni-mcp-desktop-solution.dxt* from this repository: [DXT package](nasuni-mcp-desktop-solution.dxt)
+2. In Claude Desktop, go to Settings → Extensions → Advanced settings → Extension Developer → Install Extension and select the .dxt file.
 
-### Other AI Agents - Manual install
+### Other MCP Clients - Manual Install
+If you’re using other tools (e.g., VS Code, Cursor), install and configure the MCP server manually:
 
-* For AI Agent tools other than Claude Desktop (VS Code, Cursor, etc.) you need to install and configure the MCP server manually.
-* Untar this repository somewhere.
-* Configure the MCP server similar to this:
-
+1. Extract this repository to a local folder.
+2. Configure your MCP server similar to the snippet below (insert into your tool’s config at the appropriate location):
 ```json
 "mcp_config": {
       "command": "uv",
@@ -46,8 +49,7 @@ Where the `MCP_SERVER_PATH` is the absolute path to the folder where this code i
 
 #### VS Code
 
-The config file `.vscode/mcp.json` would look like this:
-
+For VS Code, the config file `.vscode/mcp.json` would look like this:
 ```json
 {
 	"servers": {
@@ -74,24 +76,29 @@ The config file `.vscode/mcp.json` would look like this:
 
 #### Parameters for manual install
 
-- SERVER_PATH - it is the absolute path to the folder where this code is installed.
-- FILE_SYSTEM_PATH - The path to the mounted SMB share on the local file system. Required. It is the local file system absolute path. On Windows, this is typically in the form of `\\server\share` or `Z:\`.
-- MAX_SCAN_ITEMS - The maximum number of items to scan in the SMB share. Optional. Default is 1000. If a folder has more than 1000 items (files/subfolders), only the first 1000 will be returned.
-- MAX_RETURN_FILE_SIZE - The maximum size of a file to return from the SMB share. Optional. Default is 1048576 (1MB). Files bigger this size will not be read by this tool.
-- MAX_READ_FILE_SIZE - The maximum size of a file to read from the SMB share. Optional. Default is 20048576 (20MB). Files bigger this size will not be read by this tool. 
-- LOG_DESTINATION - The destination for log output. Optional. Default is empty meaning no logging. If a valid file path is provided then logs will be output there.
+- SERVER_PATH - Required. Absolute path to the folder where this code is installed.
+- FILE_SYSTEM_PATH - Required. Path to the mounted SMB share on the local machine. On Windows this is typically `\\server\share` or a mapped drive like `Z:\`.
+- MAX_SCAN_ITEMS - Optional. Maximum number of items to scan in a folder. Default: 1000. If a folder contains more than this number of items (files/subfolders), only the first N are returned.
+- MAX_RETURN_FILE_SIZE - Optional. Maximum size of any data the server will return to the client. Default: 1,048,576 bytes (≈1 MB). Items larger than this will not be returned.
+- MAX_READ_FILE_SIZE - Optional. Maximum size of any file the server will read from the SMB share. Default: 20,048,576 bytes (≈20 MB). Files larger than this will not be read. 
+- LOG_DESTINATION - Optional. Where logs are written. Default: empty (no logging). If a valid file path is provided, logs are written to that file; otherwise logs are written to the console.
 
-`MAX_RETURN_FILE_SIZE` vs `MAX_READ_FILE_SIZE`: The difference is visible and affects only for tools that can convert a file contents (image_file_contents and file_file_contents_as_text). MAX_READ_FILE_SIZE allows to control maximum size of the original file. And `MAX_RETURN_FILE_SIZE` controls the maximum size of the file that can be returned by the server after processing.
+`MAX_RETURN_FILE_SIZE` vs `MAX_READ_FILE_SIZE` - These limits serve different purposes:
+* MAX_READ_FILE_SIZE caps the size of the original file the server will load for processing (e.g., thumbnail generation, text extraction).
+* MAX_RETURN_FILE_SIZE caps the size of the output the server will send back after processing (e.g., a thumbnail or extracted text).
 
-Example: cat.png has the size 2048KB. AI agent uses the tool `image_file_contents` with the argument thumb_width=512 (the image must be converted to a thumbnail with 512 pixels width). 
-- If `MAX_READ_FILE_SIZE` is set to 1024KB then the original file can not be read. Error will be returned.
-- If `MAX_READ_FILE_SIZE` is set to 4096KB then the original file can be read. Then the server will create the thumbnail and compare the thumbnail size to `MAX_RETURN_FILE_SIZE`. If the thumbnail size is less than `MAX_RETURN_FILE_SIZE`, the thumbnail will be returned. If the thumbnail size is greater than `MAX_RETURN_FILE_SIZE`, an error will be returned.
+Example
+cat.png is 2,048 KB. An AI agent calls image_file_contents with thumb_width=512 (generate a 512-px-wide thumbnail).
+* If `MAX_READ_FILE_SIZE` = 1,024 KB, the original file is too large to read → error.
+* If `MAX_READ_FILE_SIZE` = 4,096 KB, the server reads the file, creates the thumbnail, and then compares the thumbnail’s size to `MAX_RETURN_FILE_SIZE`:
+	* If the thumbnail size ≤ `MAX_RETURN_FILE_SIZE` → the thumbnail is returned.
+	* If the thumbnail size > `MAX_RETURN_FILE_SIZE` → error.
 
 ---
 
 ## Supported Tools
 
-The following tools are available in this Solution:
+All paths are relative to the configured root (`FILE_SYSTEM_PATH`) and use / as the separator.
 
 1. **folder_contents(path: str = "") -> FolderContents**
 	- **Arguments:** `path` (str, optional)
