@@ -125,4 +125,9 @@ All paths are relative to the configured root (`FILE_SYSTEM_PATH`) and use / as 
 	- **Description:** Retrieves a file and returns extracted text when supported (PDF, DOCX). For other types, returns the raw content as a string (same behavior as `file_contents()`).
 
 
+
 ---
+
+## Security Disclaimer
+
+This software is provided as is and carries inherent security risks. Large Language Models (LLMs) and related systems cannot currently be fully secured against malicious inputs, which may lead to unintended behavior or data exposure. By using this MCP integration, you assume all responsibility for associated risks and agree that the authors accept no liability for any security incidents or consequences.
