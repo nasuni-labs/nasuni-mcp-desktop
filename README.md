@@ -1,7 +1,7 @@
-# Nasuni Desktop MCP Solution for SMB shares with STDIO
+# Nasuni Desktop MCP Solution for SMB shares
 
 ## Overview
-This project provides a Desktop Model Context Protocol (MCP) Server Solution that lets AI agents (such as Claude Desktop and other MCP-compatible tools) safely browse, read, and retrieve files from your Nasuni SMB shares via STDIO.
+This project provides a Desktop Model Context Protocol (MCP) Server Solution that lets AI agents (such as Claude Desktop and other MCP-compatible tools) safely browse, read, and retrieve files from your Nasuni SMB shares.
 It’s designed for use by Nasuni admins or power users in the context of their local computers to experiment with AI against Nasuni data.
 
 ## Prerequisites
