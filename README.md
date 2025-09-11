@@ -6,7 +6,7 @@ It’s designed for use by Nasuni admins or power users in the context of their 
 
 ## Prerequisites
 
-### -**uv** is required to run and manage project dependencies.
+### -**uv** (to run and manage project dependencies)
 For installation instructions, see the official docs: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
 #### **Mac**
 1. Check if you already have Homebrew: `command -v brew && brew --version`  If that prints a version, skip to step 4.	
