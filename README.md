@@ -6,12 +6,68 @@ It’s designed for use by Nasuni admins or power users in the context of their 
 
 ## Prerequisites
 
-* `uv` is required to run and manage project dependencies.
-	* For installation instructions, see the official docs: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
-* Python must be installed. On Windows, during installation check *Add python.exe to PATH.*
-	* Download: https://www.python.org/downloads/
-* Access to one or more Nasuni SMB shares mounted on your desktop
-* Claude Desktop, or another MCP-compatible AI agent
+### -**uv** is required to run and manage project dependencies.
+For installation instructions, see the official docs: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+#### **Mac** - The best way to install uv is to use Homebrew.
+1. Check if you already have Homebrew: `command -v brew && brew --version`  If that prints a version, skip to step 4.	
+2. Install Homebrew:
+	```
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	```
+3. Add Homebrew to your shell’s PATH (choose one):
+
+	a. Apple Silicon (M1/M2/M3, arm64) — Homebrew prefix is `/opt/homebrew`
+	```
+	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+	   eval "$(/opt/homebrew/bin/brew shellenv)"
+	```
+	b. Intel (x86_64) — Homebrew prefix is `/usr/local`
+	```
+	echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+	eval "$(/usr/local/bin/brew shellenv)"
+	```
+4. Install uv:
+   ```
+   brew update
+   brew install uv
+   ```
+5. Verify the install and that it's on a global path:
+
+   a. Confirm the binary runs: `uv --version`
+   
+   b. Confirm which executable your shell will use (should be under Homebrew’s bin):
+   ```
+   command -v uv
+   # Expected:
+   #   /opt/homebrew/bin/uv   (Apple Silicon)
+   #   /usr/local/bin/uv      (Intel)
+   ```
+   c. Make sure there isn’t a user-local copy shadowing the Homebrew one:
+   ```
+   which -a uv
+   # The first line should be the Homebrew path above.
+   # If you see something like ~/.local/bin/uv listed before it, that's a local install shadowing the global one.
+   ```
+7. Optional - Quick Fixes
+
+	a. uv not found: open a new terminal (to reload PATH) or re-run the shellenv step for your architecture, then: `hash -r   # clear shell command cache`
+
+	b. Wrong uv is picked (e.g., from ~/.local/bin): either remove that path from the front of PATH in your shell profile, or uninstall the local copy, so the Homebrew path wins.
+	c. General health checks:
+	```
+ 	brew doctor
+	brew info uv
+ 	```
+
+### -Python
+Download: https://www.python.org/downloads/
+
+#### Windows
+During installation select the option for *Add python.exe to PATH.*
+
+### -Access to one or more Nasuni SMB shares mounted on your desktop
+
+### -Claude Desktop, or another MCP-compatible AI agent
 
 ---
 
