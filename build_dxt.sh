@@ -2,28 +2,29 @@
 
 cd "$(dirname "$0")"
 ROOT_DIR="$(pwd)"
+TOOL_NAME="nasuni-mcp-desktop-solution"
 
-if [ -d "nasuni-mcp-server" ]; then
-    rm -rf "nasuni-mcp-server"
+if [ -d "$TOOL_NAME" ]; then
+    rm -rf "$TOOL_NAME"
 fi
 
-if [ -f "nasuni-mcp-server.dxt" ]; then
-    rm nasuni-mcp-server.dxt
+if [ -f "$TOOL_NAME.dxt" ]; then
+    rm "$TOOL_NAME.dxt"
 fi
 
-mkdir "nasuni-mcp-server"
+mkdir "$TOOL_NAME"
 
-cp -r mcp/* nasuni-mcp-server/
-cp manifest.json nasuni-mcp-server/
-cp icon.png nasuni-mcp-server/
-cp .dxtignore nasuni-mcp-server/
+cp -r mcp/* "$TOOL_NAME/"
+cp manifest.json "$TOOL_NAME/"
+cp icon.png "$TOOL_NAME/"
+cp .dxtignore "$TOOL_NAME/"
 
-cd nasuni-mcp-server
+cd "$TOOL_NAME"
 
 npx @anthropic-ai/dxt pack
 
 cd "$ROOT_DIR"
 
-mv nasuni-mcp-server/nasuni-mcp-server.dxt .
+mv "$TOOL_NAME/$TOOL_NAME.dxt" .
 
-rm -rf nasuni-mcp-server
+rm -rf "$TOOL_NAME"

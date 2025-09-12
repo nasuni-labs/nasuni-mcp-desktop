@@ -1,7 +1,7 @@
 {
   "dxt_version": "0.1",
   "name": "Nasuni Storage",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "The extension allows users to interact with Nasuni storage",
   "author": {
     "name": "Roman Gelembiuk",
@@ -18,13 +18,10 @@
         "--quiet",
         "--directory",
         "${__dirname}",
-        "server.py",
-        "--exclude_folders",
-        "${user_config.exclude_folders}"
+        "server.py"
       ],
       "env": {
         "FILE_SYSTEM_PATH": "${user_config.file_system_path}",
-        "LOG_DESTINATION": "${user_config.log_destination}",
         "MAX_SCAN_ITEMS": "${user_config.max_scan_items}",
         "MAX_RETURN_FILE_SIZE": "${user_config.max_return_file_size}",
         "MAX_READ_FILE_SIZE": "${user_config.max_read_file_size}"
@@ -37,21 +34,6 @@
       "title": "Storage Mount Path",
       "description": "The path to the place in file system where Nasuni share is mounted",
       "required": true
-    },
-    "exclude_folders": {
-      "type": "directory",
-      "title": "Exclude Folders",
-      "description": "The list of folders to exclude from access",
-      "multiple": true,
-      "default": [],
-      "required": false
-    },
-    "log_destination": {
-      "type": "file",
-      "title": "Log File Location",
-      "description": "The path to the file where logs will be stored. If not set then no logs are created.",
-      "default": "",
-      "required": false
     },
     "max_scan_items": {
       "type": "number",

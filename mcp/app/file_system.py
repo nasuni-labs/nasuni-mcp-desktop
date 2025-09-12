@@ -177,7 +177,11 @@ class FileSystem:
         """
         Check if the given path is in any of the excluded folders.
         """
-        return any(path.startswith(excluded) for excluded in self.config.exclude_folders)
+
+        if not self.config.exclude_folders:
+            return False # no excluded folders
+
+        return any(excluded and path.startswith(excluded) for excluded in self.config.exclude_folders)
     
     def _build_path(self, relative_path: str) -> str:
         """

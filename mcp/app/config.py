@@ -73,12 +73,13 @@ class Config:
                             break
                         current_values.append(next_arg)
                         sys.argv.remove(next_arg)
-                    if current_type == list[str]:
-                        setattr(self, current_key, current_values)
-                    elif current_type == str and len(current_values) > 0:
-                        setattr(self, current_key, current_values[0] if current_values else "")
-                    elif current_type == int and len(current_values) > 0:
-                        setattr(self, current_key, int(current_values[0]) if current_values else 0)
+                    if len(current_values) > 0:
+                        if current_type == list[str] and current_values[0]:
+                            setattr(self, current_key, current_values)
+                        elif current_type is str:
+                            setattr(self, current_key, current_values[0] if current_values else "")
+                        elif current_type is int:
+                            setattr(self, current_key, int(current_values[0]) if current_values else 0)
 
     def get_log_level(self) -> int:
         """
