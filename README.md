@@ -187,3 +187,8 @@ All paths are relative to the configured root (`FILE_SYSTEM_PATH`) and use / as 
 ## Security Disclaimer
 
 This software is provided as is and carries inherent security risks. Large Language Models (LLMs) and related systems cannot currently be fully secured against malicious inputs, which may lead to unintended behavior or data exposure. By using this MCP integration, you assume all responsibility for associated risks and agree that the authors accept no liability for any security incidents or consequences.
+
+
+## Nasuni Labs Disclaimer
+
+Nasuni Labs projects are community-supported and maintained within this repository. They are provided as-is, without guarantees or formal Nasuni support. Use at your own discretion.
