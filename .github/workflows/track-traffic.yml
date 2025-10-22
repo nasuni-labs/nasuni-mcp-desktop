@@ -1,0 +1,47 @@
+name: Track GitHub Traffic
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  track-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main for script
+        uses: actions/checkout@v4
+        with:
+          path: main
+          
+      - name: Checkout traffic-data branch for CSV files
+        uses: actions/checkout@v4
+        with:
+          ref: traffic-data
+          token: ${{ secrets.TRAFFIC_TOKEN }}
+          path: traffic-data
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests
+          
+      - name: Process Traffic Data to CSV
+        env:
+          GH_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          cd traffic-data
+          python ../main/scripts/process_traffic.py
+          
+      - name: Commit and Push
+        run: |
+          cd traffic-data
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Traffic data: $(date +%Y-%m-%d)" && git push)
