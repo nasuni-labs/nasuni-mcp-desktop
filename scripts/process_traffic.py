@@ -59,6 +59,11 @@ def process_paths(paths_data):
     today = datetime.now().date().isoformat()
     records = []
     
+    # Handle case where paths_data might not be a list
+    if not isinstance(paths_data, list):
+        print(f"Warning: paths_data is not a list: {paths_data}")
+        return records
+    
     for path in paths_data:
         records.append({
             'date': today,
@@ -74,6 +79,11 @@ def process_referrers(referrers_data):
     """Process referrers data"""
     today = datetime.now().date().isoformat()
     records = []
+    
+    # Handle case where referrers_data might not be a list
+    if not isinstance(referrers_data, list):
+        print(f"Warning: referrers_data is not a list: {referrers_data}")
+        return records
     
     for referrer in referrers_data:
         records.append({
