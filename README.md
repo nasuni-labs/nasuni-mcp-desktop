@@ -2,9 +2,7 @@
 
 ## Overview
 This project provides a Desktop Model Context Protocol (MCP) Server Solution that lets Claude Desktop safely browse, read, and retrieve files from your Nasuni SMB shares.
-It’s designed for use by Nasuni admins in the context of their local computers to experiment with AI against Nasuni data.
-
-Built for experimentation only - not intended for production use at any scale.
+It’s designed for use by Nasuni admins and power users in the context of their local computers to experiment with AI against Nasuni data.
 
 **For additional information and guided training, please visit https://nasuni-customer-academy.workramp.io/training/01999637-8154-7340-ad76-f24dace6a8d5/overview (registration required).**
 
